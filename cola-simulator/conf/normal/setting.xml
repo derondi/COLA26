@@ -1,0 +1,14 @@
+<setting>
+<attribute><name>information.bits</name><value>16320</value></attribute>
+<attribute><name>parity.bits</name><value>2040</value></attribute>
+<attribute><name>ldpc.encoder</name><value>irs</value></attribute>
+<attribute><name>ldpc.encoder.param</name><value>8;72;255;3;2</value></attribute>
+<attribute><name>failure.model</name><value>gaussian</value></attribute>
+<attribute><name>failure.model.param</name><value>16320;2040;0.002</value></attribute>
+<attribute><name>ldpc.decoder</name><value>gdbf</value></attribute>
+<attribute><name>ldpc.decoder.param</name><value>200</value></attribute>
+<attribute><name>rber.rate</name><value>0.002</value></attribute>
+<attribute><name>iteration.number</name><value>10000</value></attribute>
+<attribute><name>msa.alpha</name><value>0.43</value></attribute> 
+<attribute><name>msa.beta</name><value>0.34</value></attribute>
+</setting>

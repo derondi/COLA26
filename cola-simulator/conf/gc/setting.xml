@@ -1,0 +1,12 @@
+<setting>
+<attribute><name>gc.ldpc.encoder</name><value>gc-irs</value></attribute>
+<attribute><name>gc.ldpc.encoder.param</name><value>2;3;2;8;72;508</value></attribute>
+<attribute><name>gc.ldpc.decoder</name><value>gc-qlmsa</value></attribute>
+<attribute><name>gc.ldpc.decoder.param</name><value>10;10</value></attribute>
+<attribute><name>gc.failure.model</name><value>gc-gaussian</value></attribute>
+<attribute><name>gc.failure.model.param</name><value>32512;4064;0.008</value></attribute>
+<attribute><name>rber.rate</name><value>0.008</value></attribute>
+<attribute><name>iteration.number</name><value>1000</value></attribute>
+<attribute><name>msa.alpha</name><value>0.43</value></attribute> 
+<attribute><name>msa.beta</name><value>0.34</value></attribute>
+</setting>
