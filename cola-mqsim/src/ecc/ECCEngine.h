@@ -423,11 +423,11 @@ class ECCEngine : public MQSimEngine::Sim_Object, public MQSimEngine::Sim_Report
             code_buf_total_1kb[i + N_local_1kb] = code_buf_2_1kb[i];
         }
         
-        cout << "multi-codeword smart reading = " << ECC_Parameter_Set::enable_smart_decoding << endl;
+        cout << "multi-codeword smart reading = " << ECC_Parameter_Set::enable_failure_aware_decoding << endl;
         cout << "codeword type = " << ECC_Parameter_Set::ssd_init_codeword_type_in_kb << endl;
-        cout << "rber-aware encoding = " << ECC_Parameter_Set::rber_aware_encoding << endl;
-        cout << "failure aware ecc = " << ECC_Parameter_Set::failure_aware_ecc << endl;
-        cout << "skip hard decoding = " << ECC_Parameter_Set::skip_hard_decoding << endl;
+        cout << "rber-aware encoding = " << ECC_Parameter_Set::enable_optimal_codelength << endl;
+        cout << "failure aware ecc = " << ECC_Parameter_Set::enable_failure_aware_read_retry << endl;
+        cout << "skip hard decoding = " << ECC_Parameter_Set::enable_bypass_read << endl;
     }
 
     void Setup_triggers();

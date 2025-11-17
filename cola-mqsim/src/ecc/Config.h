@@ -45,11 +45,10 @@ const string HARD_DECODER_PARAM_1kb = "100;100";
 const string ENCODER_PARAM_1kb = "2;3;2;8;72;128";
 
 const uint16_t SSD_INIT_CODEWORD_TYPE_IN_KB = 4; // 1kb, 2kb, 4kb, 8kb, 16kb
-const bool LOCAL_HARD_DECODE_SKIP = false; // local hard decode skip
-const bool FAILURE_AWARE_ECC = false; // failure aware ecc
-const bool ENABLE_SMART_DECODING = false; // smart reading
-const uint16_t RBER_AWARE_ENCODING = 0; // 0 for Uniform-ECC, 1 for Refresh, 2 for RBER-based, 3 for LAC
-const bool SKIP_HARD_DECODING = false; // skip hard decoding
+const bool ENABLE_FAILURE_AWARE_READ_RETRY = false; // failure aware ecc
+const bool ENABLE_FAILURE_AWARE_DECODING = false; // smart reading
+const uint16_t ENABLE_OPTIMAL_CODELENGTH = 0; // 0 for Uniform-ECC, 1 for Refresh, 2 for RBER-based, 3 for LAC
+const bool ENABLE_BYPASS_READ = false; // skip hard decoding
 const uint64_t SSD_INIT_PE_CYCLES = 10000;
 const double SSD_INIT_RETENTION_DAYS = 0;
 const uint64_t SSD_INIT_READ_TIMES = 0;
@@ -124,8 +123,8 @@ const double critical_point_8kb[] = {
     0.005785110473632813,
 };
 
-// Skip hard decode ??
-inline bool smart_decoding_skip(double rber, int ncodeword, CodeWordType CodewordType)
+// Skip hard decode 
+inline bool failure_aware_decoding_skip(double rber, int ncodeword, CodeWordType CodewordType)
 {
     if (ncodeword < 1 || ncodeword > 16 || rber == 0)
     {
@@ -149,10 +148,10 @@ inline bool smart_decoding_skip(double rber, int ncodeword, CodeWordType Codewor
     }
 }
 
-inline bool try_smart_decoding(SSD_Components::NVM_Transaction_Flash *transaction, int ncodeword, CodeWordType CodewordType)
+inline bool try_failure_aware_decoding(SSD_Components::NVM_Transaction_Flash *transaction, int ncodeword, CodeWordType CodewordType)
 {
-    if (transaction->decode_type == SSD_Components::DECODE_TYPE::HARD && ECC_Parameter_Set::enable_smart_decoding &&
-        smart_decoding_skip(transaction->rber, ncodeword, CodewordType))
+    if (transaction->decode_type == SSD_Components::DECODE_TYPE::HARD && ECC_Parameter_Set::enable_failure_aware_decoding &&
+        failure_aware_decoding_skip(transaction->rber, ncodeword, CodewordType))
     {
         transaction->decode_type = SSD_Components::DECODE_TYPE::FIRST_SOFT;
         return true;
@@ -161,22 +160,19 @@ inline bool try_smart_decoding(SSD_Components::NVM_Transaction_Flash *transactio
     return false;
 }
 
-inline bool try_skip_hard_decoding(SSD_Components::NVM_Transaction_Flash *transaction)
+inline bool try_optimal_codelength(NVM::FlashMemory::Page *target_page, int ncodeword, CodeWordType CodewordType)
 {
-    if (transaction->decode_type == SSD_Components::DECODE_TYPE::HARD && ECC_Parameter_Set::skip_hard_decoding)
+    // To be implemented
+    return false;
+}
+
+inline bool try_bypass_read(SSD_Components::NVM_Transaction_Flash *transaction)
+{
+    if (transaction->decode_type == SSD_Components::DECODE_TYPE::HARD && ECC_Parameter_Set::enable_bypass_read)
     {
         transaction->decode_type = SSD_Components::DECODE_TYPE::FIRST_SOFT;
         return true;
     }
 }
 
-inline bool local_hard_decoding_skip(bool skip)
-{
-    if (skip == 1)
-    {
-        return false;
-    }
-    else 
-        return true;
-}
 #endif

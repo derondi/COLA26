@@ -365,8 +365,8 @@ int main(int argc, char* argv[])
 		collect_results(ssd, host, (workload_defs_file_path.substr(0, workload_defs_file_path.find_last_of(".")) + "_" + 
 		std::to_string(ECC_Parameter_Set::ssd_init_pe_cycles) + "_" + 
 		std::to_string(ECC_Parameter_Set::ssd_init_codeword_type_in_kb) + "_" + 
-		std::to_string(ECC_Parameter_Set::enable_smart_decoding) + "_" + 
-		std::to_string(ECC_Parameter_Set::failure_aware_ecc) +
+		std::to_string(ECC_Parameter_Set::enable_failure_aware_decoding) + "_" + 
+		std::to_string(ECC_Parameter_Set::enable_failure_aware_read_retry) +
 		"_scenario_" + std::to_string(cntr) + "_" + ss.str() + ".xml").c_str());
 	}
     cout << "Simulation complete; Press any key to exit." << endl;

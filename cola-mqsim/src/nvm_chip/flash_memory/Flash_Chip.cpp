@@ -218,52 +218,41 @@ namespace NVM
             //targetDie->Planes[command->Address[planeCntr].PlaneID]->Blocks[command->Address[planeCntr].BlockID]->Pages[command->Address[planeCntr].PageID].LastWrittenTime = Simulator->Time();
 			
 			// to do
-			switch(ECC_Parameter_Set::rber_aware_encoding){
+			switch(ECC_Parameter_Set::enable_optimal_codelength){
 				case(0):
 				// Using Uniform ECC of 4kb
 				{
 					break;
 				}
 				case(1):
-				// in-place Rrefresh 
 				{
 					// 1. get the metadata
 					double rber = get_rber(targetBlock->EraseCount, targetPage.RetentionTime, targetPage.Reads);
-					if (rber >= 0.01){
-						targetPage.RetentionTime = 0;
-						targetPage.Reads = 0;
+					if (rber <= 0.00395){
+						targetPage.SetCodewordType(CodeWordType::_1kb);
+					}
+					else if (rber > 0.00395 && rber <= 0.00475){
+						targetPage.SetCodewordType(CodeWordType::_2kb);
+					}
+					else if (rber > 0.00475 && rber <= 0.00575){
+						targetPage.SetCodewordType(CodeWordType::_4kb);
+					}
+					else if (rber > 0.00575 && rber <= 0.01397){
+						targetPage.SetCodewordType(CodeWordType::_1kb);
+					}
+					else if (rber > 0.01397 && rber <= 0.015){
+						targetPage.SetCodewordType(CodeWordType::_2kb);
+					}
+					else if (rber > 0.015 && rber <= 0.01596){
+						targetPage.SetCodewordType(CodeWordType::_4kb);
+					}
+					else{
+						targetPage.SetCodewordType(CodeWordType::_8kb);
 					}
 					break;
 				}
-				case(2):
-				// re-coding based on RBER
-				// 1. get the metadata
-				{
-				    //ECCMetadata metadata = GetECCMetadata(command->Address[planeCntr].DieID, command->Address[planeCntr].PlaneID, command->Address[planeCntr].BlockID, command->Address[planeCntr].PageID);
-				    double rber = get_rber(targetBlock->EraseCount, targetPage.RetentionTime, targetPage.Reads);
-				    if (rber >= 0.01 && targetPage.CodewordType == CodeWordType::_2kb){
-						targetPage.RetentionTime = 0;
-						targetPage.Reads = 0;
-						targetPage.SetCodewordType(CodeWordType::_4kb);
-				}
-				break;
-			}
-				case(3):
-				// re-coding based on Latency
-				// 1. get the metadata
-                //ECCMetadata metadata = GetECCMetadata(command->Address[planeCntr].DieID, command->Address[planeCntr].PlaneID, command->Address[planeCntr].BlockID, command->Address[planeCntr].PageID);
-				{
-				    double rber = get_rber(targetBlock->EraseCount, targetPage.RetentionTime, targetPage.Reads);
-				    // 2. choose the codeword type
-				    if (rber >= 0.0145 && targetPage.CodewordType == CodeWordType::_2kb){
-						targetPage.RetentionTime = 0;
-						targetPage.Reads = 0;
-						targetPage.SetCodewordType(CodeWordType::_4kb);
-			}
-			break;
-		}
 				default:{
-				std::cout << "Re-coding Method = " << ECC_Parameter_Set::rber_aware_encoding << std::endl;
+				std::cout << "Re-coding Method = " << ECC_Parameter_Set::enable_optimal_codelength << std::endl;
                 assert(false && "Invalid Re-coding Method");
                 PRINT_ERROR("Invalid Re-coding Method");
 				break;

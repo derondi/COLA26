@@ -101,8 +101,8 @@ namespace SSD_Components
             const auto rber = get_rber(metadata.cycles, metadata.RetentionTime, metadata.Reads);
             const auto ncodeword = (*it)->nocodeword(metadata.CodewordNumber);
             (*it)->rber = rber;
-			//try_skip_hard_decoding(*it);
-            try_smart_decoding(*it, ncodeword, metadata.CodewordType);
+			//try_bypass_read(*it);
+            try_failure_aware_decoding(*it, ncodeword, metadata.CodewordType);
 
             if (!is_set)
             {
@@ -139,8 +139,8 @@ namespace SSD_Components
               const auto rber = get_rber(metadata.cycles, metadata.RetentionTime, metadata.Reads);
               const auto ncodeword = (*it)->nocodeword(metadata.CodewordNumber);
               (*it)->rber = rber;
-			  //try_skip_hard_decoding(*it);
-              try_smart_decoding(*it , ncodeword, metadata.CodewordType);
+			  //try_bypass_read(*it);
+              try_failure_aware_decoding(*it , ncodeword, metadata.CodewordType);
 
               if (!is_set)
               {

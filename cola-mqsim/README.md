@@ -1,35 +1,9 @@
-# MQSim: A Simulator for Modern NVMe and SATA SSDs
-
-MQSim is a simulator that accurately captures the behavior of both modern multi-queue SSDs and conventional SATA-based SSDs. MQSim faithfully models a number of critical features absent in existing state-of-the-art simulators, including (1) modern multi-queue-based host–interface protocols (e.g., NVMe), (2) the steady-state behavior of SSDs, and (3) the end-to-end latency of I/O requests. MQSim can be run as a standalone tool, or integrated with a full-system simulator.
-
-The full paper is published in FAST 2018 and is available online at https://people.inf.ethz.ch/omutlu/pub/MQSim-SSD-simulation-framework_fast18.pdf  
-
-## Citation
-Please cite our full FAST 2018 paper if you find this repository useful.
-
-> Arash Tavakkol, Juan Gomez-Luna, Mohammad Sadrosadati, Saugata Ghose, and Onur Mutlu, [`"MQSim: A Framework for Enabling Realistic Studies of Modern Multi-Queue SSD Devices"`](https://people.inf.ethz.ch/omutlu/pub/MQSim-SSD-simulation-framework_fast18.pdf) Proceedings of the 16th USENIX Conference on File and Storage Technologies (FAST), Oakland, CA, USA, February 2018.
-
-```bibtex
-@inproceedings{tavakkol2018mqsim,
-  title={{MQSim: A Framework for Enabling Realistic Studies of Modern Multi-Queue SSD Devices}},
-  author={Tavakkol, Arash and G{\'o}mez-Luna, Juan and Sadrosadati, Mohammad and Ghose, Saugata and Mutlu, Onur},
-  booktitle={FAST},
-  year={2018}
-}
-```
-## Additional Resources
-
-To learn more about MQSim, please refer to the slides and talk below:
-
- - Slides: [`(pptx)`](https://people.inf.ethz.ch/omutlu/pub/MQSim-SSD-simulation-framework_fast18-talk.pptx) [`(pdf)`](https://people.inf.ethz.ch/omutlu/pub/MQSim-SSD-simulation-framework_fast18-talk.pdf)
-  - Talk: [`Introduction to MQSim`](http://www.youtube.com/watch?v=d40ekgmjM98) from the [`Understanding and Designing Modern NAND Flash-Based Solid-State Drives (SSDs)`](https://safari.ethz.ch/projects_and_seminars/spring2022/doku.php?id=modern_ssds) course
-
 ## Usage in Linux
 Run following commands:
 	
 ```
 $ make
-$ ./MQSim -i <SSD Configuration File> -w <Workload Definition File>
+$ ./MQSim -i <SSD Configuration File> -w <Workload Definition File> -e <ECC Config File> -o <Result File>
 ```
 
 ## Usage in Windows
@@ -42,7 +16,7 @@ $ ./MQSim -i <SSD Configuration File> -w <Workload Definition File>
 Example command line execution:
 
 ```
-$ MQSim.exe -i <SSD Configuration File> -w <Workload Definition File> 
+$ MQSim.exe -i <SSD Configuration File> -w <Workload Definition File> -e <ECC Config File> -o <Result File>
 ```
 
 ## MQSim Execution Configurations 
@@ -182,6 +156,40 @@ The following parameters are used to define a trace-based workload:
 21. **Stop_Time:** defines when to stop generating I/O requests in nanoseconds.
 22. **Total_Requests_To_Generate:** if Stop_Time is set to zero, then MQSim's request generator considers Total_Requests_To_Generate to decide when to stop generating I/O requests.
 
+### ECC Config File
+1. **information_bits_8kb:** information bits of 1 8kib codeword (i.e. 65536 bits).
+2. **parity_bits_8kb:** parity bits of 1 8kib codeword(i.e. 8192 bits).
+3. **ldpc_encoder_param_8kb:** 8kib ldpc encoder parameter(i.e. 2;3;2;8;72;1024).
+4. **ldpc_soft_decoder_param_8kb:** 8kib ldpc soft decoder parameter(i.e. 0 for local matrix and 200 for global matrix).
+5. **ldpc_hard_decoder_param_8kb:** 8kib ldpc hard decoder parameter(i.e. 0 for local matrix and 200 for global matrix).
+6. **msa_alpha_8kb:** 8kib msa alpha(i.e. 0.83 for local matrix; 0.43 for global matrix).
+7. **msa_beta_8kb:** 8kib msa beta(i.e. 0.34 for both local matrix and global matrix).
+8. **information_bits_4kb:** information bits of 1 4kib codeword (i.e. 32768 bits).
+9. **parity_bits_4kb:** parity bits of 1 4kib codeword(i.e. 4096 bits).
+10. **ldpc_encoder_param_4kb:** 4kib ldpc encoder parameter(i.e. 2;3;2;8;72;512).
+11. **ldpc_soft_decoder_param_4kb:** 4kib ldpc soft decoder parameter(i.e. 0 for local matrix and 200 for global matrix).
+12. **ldpc_hard_decoder_param_4kb:** 4kib ldpc hard decoder parameter(i.e. 0 for local matrix and 200 for global matrix).
+13. **msa_alpha_4kb:** 4kib msa alpha(i.e. 0.83 for local matrix; 0.43 for global matrix).
+14. **msa_beta_4kb:** 4kib msa beta(i.e. 0.34 for both local matrix and global matrix).
+15. **information_bits_2kb:** information bits of 1 2kib codeword (i.e. 16384 bits).
+16. **parity_bits_2kb:** parity bits of 1 2kib codeword(i.e. 2048 bits).
+17. **ldpc_encoder_param_2kb:** 2kib ldpc encoder parameter(i.e. 2;3;2;8;72;256).
+18. **ldpc_soft_decoder_param_2kb:** 2kib ldpc soft decoder parameter(i.e. 0 for local matrix and 200 for global matrix).
+19. **ldpc_hard_decoder_param_2kb:** 2kib ldpc hard decoder parameter(i.e. 0 for local matrix and 200 for global matrix).
+20. **msa_alpha_2kb:** 2kib msa alpha(i.e. 0.83 for local matrix; 0.43 for global matrix).
+21. **msa_beta_2kb:** 2kib msa beta(i.e. 0.34 for both local matrix and global matrix).
+22. **information_bits_1kb:** information bits of 1 1kib codeword (i.e. 8192 bits).
+23. **parity_bits_1kb:** parity bits of 1 1kib codeword(i.e. 1024 bits).
+24. **ldpc_encoder_param_1kb:** 1kib ldpc encoder parameter(i.e. 2;3;2;8;72;128).
+25. **ldpc_soft_decoder_param_1kb:** 1kib ldpc soft decoder parameter(i.e. 0 for local matrix and 200 for global matrix).
+26. **ldpc_hard_decoder_param_1kb:** 1kib ldpc hard decoder parameter(i.e. 0 for local matrix and 200 for global matrix).
+27. **msa_alpha_1kb:** 1kib msa alpha(i.e. 0.83 for local matrix; 0.43 for global matrix).
+28. **msa_beta_1kb:** 1kib msa beta(i.e. 0.34 for both local matrix and global matrix).
+29. **ssd_init_codeword_type_in_kb:** ssd initial codeword type(i.e. 4)
+8. **ssd_init_pe_cycles:** ssd initial P/E Cycles(i.e. 0).
+9. **ssd_init_retention_days:** ssd initial retentions time(i.e. 100 days).
+10. **ssd_init_read_times:** ssd initial read times(i.e. 100).
+11. **enable_failure_aware_decoding:** the toggle to enable smart decoding(i.e. 0). Range = {1, 0}.
 
 ## Analyze MQSim's XML Output
 You can use an XML processor to easily read and analyze an MQSim output file. For example, you can open an MQSim output file in MS Excel. Then, MS Excel shows a set of options and you should choose "Use the XML Source task pane". The XML file is processed in MS Excel and a task pane is shown with all output parameters listed in it. In the task pane on the right, you see different types of statistics available in the MQSim's output file. To read the value of a parameter, you should:<br />
@@ -205,36 +213,19 @@ For each defined IO_Flow, the following parameters are shown:
 11. **Bandwidth:** The total bandwidth delivered by the SSD Device in bytes per second.
 12. **Bandwidth_Read:** The total read bandwidth delivered by the SSD Device in bytes per second.
 13. **Bandwidth_Write:** The total write bandwidth delivered by the SSD Device in bytes per second.
-14. **Device_Response_Time:** The average SSD device response time for a request, in nanoseconds. This is defined as the time between enqueueing the request in the I/O submission queue, and removing it from the I/O completion queue.
-15. **Min_Device_Response_Time:** The minimum SSD device response time for a request, in nanoseconds. 
-16. **Max_Device_Response_Time:** The maximum SSD device response time for a request, in nanoseconds.
-17. **End_to_End_Request_Delay:** The average delay between generating an I/O request and receiving a corresponding answer. This is defined as the difference between the request arrival time, and its removal time from the I/O completion queue. Note that the request arrival_time is the same as the request enqueue_time, when using the multi-queue properties of NVMe drives.
-18. **Min_End_to_End_Request_Delay:** The minimum end-to-end request delay.
-19. **Max_End_to_End_Request_Delay:** The maximum end-to-end request delay.
+14. **Device_Response_Time:** The average SSD device response time for a request, in microseconds. This is defined as the time between enqueueing the request in the I/O submission queue, and removing it from the I/O completion queue.
+15. **Device_Response_Time_Read:** The average SSD device read response time for a request, in microseconds.
+16. **Device_Response_Time_Write:** The average SSD device write response time for a request, in microseconds.
+17. **Min_Device_Response_Time:** The minimum SSD device response time for a request, in microseconds. 
+18. **Max_Device_Response_Time:** The maximum SSD device response time for a request, in microseconds.
+19. **End_to_End_Request_Delay:** The average delay between generating an I/O request and receiving a corresponding answer. This is defined as the difference between the request arrival time, and its removal time from the I/O completion queue. Note that the request arrival_time is the same as the request enqueue_time, when using the multi-queue properties of NVMe drives.
+20. **Min_End_to_End_Request_Delay:** The minimum end-to-end request delay.
+21. **Max_End_to_End_Request_Delay:** The maximum end-to-end request delay.
 
 ### SSDDevice
 The output parameters in the SSDDevice category contain values for:
 1. Average transaction times at a lower abstraction level (SSDDevice.IO_Stream)
-2. Statistics for the flash transaction layer (FTL)
-3. Statistics for each queue in the SSD's internal flash Transaction Scheduling Unit (TSU): In the TSU exists a User_Read_TR_Queue, a User_Write_TR_Queue, a Mapping_Read_TR_Queue, a Mapping_Write_TR_Queue, a GC_Read_TR_Queue, a GC_Write_TR_queue, a GC_Erase_TR_Queue for each combination of channel and package.
-4. For each package: the fraction of time in the exclusive memory command execution, exclusive data transfer, overlapped memory command execution and data transfer, and idle mode.
-
-
-## References
-[1] A. Tavakkol et al., "MQSim: A Framework for Enabling Realistic Studies of Modern Multi-Queue SSD Devices," FAST, pp. 49 - 66, 2018.
-
-[2] M. Jung and M. T. Kandemir, "Sprinkler: Maximizing Resource Utilization in Many-chip Solid State Disks," HPCA, pp. 524-535, 2014.
-
-[3] A. Tavakkol  et al., "Performance Evaluation of Dynamic Page Allocation Strategies in SSDs," ACM TOMPECS, pp. 7:1--7:33, 2016.
-
-[4] B. Van Houdt, "A Mean Field Model for a Class of Garbage Collection Algorithms in Flash-based Solid State Drives," SIGMETRICS, pp. 191-202, 2013.
-
-[5] Y. Li et al., "Stochastic Modeling of Large-Scale Solid-State Storage Systems: Analysis, Design Tradeoffs and Optimization," SIGMETRICS, pp. 179-190, 2013.
-
-[6] P. Desnoyers, "Analytic Modeling of SSD Write Performance", SYSTOR, pp. 12:1-12:10, 2012.
-
-[7] J. Lee et al., "Preemptible I/O Scheduling of Garbage Collection for Solid State Drives," Vol. 32, No. 2, pp. 247-260, 2013.
-
-[8] J. S. Bucy et al., "The DiskSim Simulation Environment Version 4.0 Reference Manual", CMU Tech Rep. CMU-PDL-08-101, 2008.
-
-[9] Micron Technology, Inc., "Wear Leveling in NAND Flash Memory", Application Note AN1822, 2010.
+2. Statistics for the ECC engine
+3. Statistics for the flash transaction layer (FTL)
+4. Statistics for each queue in the SSD's internal flash Transaction Scheduling Unit (TSU): In the TSU exists a User_Read_TR_Queue, a User_Write_TR_Queue, a Mapping_Read_TR_Queue, a Mapping_Write_TR_Queue, a GC_Read_TR_Queue, a GC_Write_TR_queue, a GC_Erase_TR_Queue for each combination of channel and package.
+5. For each package: the fraction of time in the exclusive memory command execution, exclusive data transfer, overlapped memory command execution and data transfer, and idle mode.

@@ -40,14 +40,13 @@ std::string ECC_Parameter_Set::msa_alpha_param_1kb = ALPHA_PARAM_1kb;
 std::string ECC_Parameter_Set::msa_beta_param_1kb = BETA_PARAM_1kb;
 
 uint16_t ECC_Parameter_Set::ssd_init_codeword_type_in_kb = SSD_INIT_CODEWORD_TYPE_IN_KB;
-bool ECC_Parameter_Set::local_hard_decode_skip = LOCAL_HARD_DECODE_SKIP;
-bool ECC_Parameter_Set::failure_aware_ecc = FAILURE_AWARE_ECC;
+bool ECC_Parameter_Set::enable_failure_aware_read_retry = ENABLE_FAILURE_AWARE_READ_RETRY;
 uint64_t ECC_Parameter_Set::ssd_init_pe_cycles = SSD_INIT_PE_CYCLES;
 double ECC_Parameter_Set::ssd_init_retention_days = SSD_INIT_RETENTION_DAYS;
 uint64_t ECC_Parameter_Set::ssd_init_read_times = SSD_INIT_READ_TIMES;
-bool ECC_Parameter_Set::enable_smart_decoding = ENABLE_SMART_DECODING;
-uint16_t ECC_Parameter_Set::rber_aware_encoding = RBER_AWARE_ENCODING;
-bool ECC_Parameter_Set::skip_hard_decoding = SKIP_HARD_DECODING;
+bool ECC_Parameter_Set::enable_failure_aware_decoding = ENABLE_FAILURE_AWARE_DECODING;
+uint16_t ECC_Parameter_Set::enable_optimal_codelength = ENABLE_OPTIMAL_CODELENGTH;
+bool ECC_Parameter_Set::enable_bypass_read = ENABLE_BYPASS_READ;
 
 void ECC_Parameter_Set::XML_serialize(Utils::XmlWriter &xmlwriter)
 {
@@ -175,14 +174,6 @@ void ECC_Parameter_Set::XML_deserialize(rapidxml::xml_node<> *node)
             {
                 ssd_init_codeword_type_in_kb = std::stoull(param->value());
             }
-            else if (strcmp(param->name(), "local_hard_decode_skip") == 0)
-            {
-                local_hard_decode_skip = std::stoull(param->value());
-            }
-            else if (strcmp(param->name(), "failure_aware_ecc") == 0)
-            {
-                failure_aware_ecc = std::stoull(param->value());
-            }
             else if (strcmp(param->name(), "ssd_init_pe_cycles") == 0)
             {
                 ssd_init_pe_cycles = std::stoull(param->value());
@@ -195,17 +186,21 @@ void ECC_Parameter_Set::XML_deserialize(rapidxml::xml_node<> *node)
             {
                 ssd_init_read_times = std::stoull(param->value());
             }
-            else if (strcmp(param->name(), "enable_smart_decoding") == 0)
+            else if (strcmp(param->name(), "enable_failure_aware_read_retry") == 0)
             {
-                enable_smart_decoding = std::stoi(param->value()) == 0 ? false : true;
+                enable_failure_aware_read_retry = std::stoull(param->value());
             }
-            else if (strcmp(param->name(), "rber_aware_encoding") == 0)
+            else if (strcmp(param->name(), "enable_failure_aware_decoding") == 0)
             {
-                rber_aware_encoding = std::stoul(param->value()) == 0 ? false : true;
+                enable_failure_aware_decoding = std::stoi(param->value()) == 0 ? false : true;
             }
-             else if (strcmp(param->name(), "skip_hard_decoding") == 0)
+            else if (strcmp(param->name(), "enable_optimal_codelength") == 0)
             {
-                skip_hard_decoding = std::stoi(param->value()) == 0 ? false : true;
+                enable_optimal_codelength = std::stoul(param->value()) == 0 ? false : true;
+            }
+             else if (strcmp(param->name(), "enable_bypass_read") == 0)
+            {
+                enable_bypass_read = std::stoi(param->value()) == 0 ? false : true;
             }
             else
             {

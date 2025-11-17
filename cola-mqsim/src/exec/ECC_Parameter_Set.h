@@ -42,14 +42,13 @@ class ECC_Parameter_Set : public Parameter_Set_Base
     static std::string msa_beta_param_1kb;
 
     static uint16_t ssd_init_codeword_type_in_kb;
-    static bool local_hard_decode_skip;
-    static bool failure_aware_ecc;
+    static bool enable_failure_aware_read_retry;
     static uint64_t ssd_init_pe_cycles;
     static double ssd_init_retention_days;
     static uint64_t ssd_init_read_times;
-    static bool enable_smart_decoding;
-    static uint16_t rber_aware_encoding;
-    static bool skip_hard_decoding;
+    static bool enable_failure_aware_decoding;
+    static uint16_t enable_optimal_codelength;
+    static bool enable_bypass_read;
 
     void XML_serialize(Utils::XmlWriter &xmlwriter);
     void XML_deserialize(rapidxml::xml_node<> *node);

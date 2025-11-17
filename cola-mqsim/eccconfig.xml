@@ -28,12 +28,11 @@
   <msa_alpha_param_1kb>0.83;0.43</msa_alpha_param_1kb>
   <msa_beta_param_1kb>0.34;0.34</msa_beta_param_1kb>
   <ssd_init_codeword_type_in_kb>4</ssd_init_codeword_type_in_kb>
-  <local_hard_decode_skip>0</local_hard_decode_skip>
-  <failure_aware_ecc>0</failure_aware_ecc>
   <ssd_init_pe_cycles>0</ssd_init_pe_cycles>
   <ssd_init_retention_days>0</ssd_init_retention_days>
   <ssd_init_read_times>0</ssd_init_read_times>
-  <enable_smart_decoding>0</enable_smart_decoding>
-  <rber_aware_encoding>0</rber_aware_encoding>
-  <skip_hard_decoding>0</skip_hard_decoding>
+  <enable_failure_aware_read_retry>0</enable_failure_aware_read_retry>
+  <enable_failure_aware_decoding>0</enable_failure_aware_decoding>
+  <enable_optimal_codelength>0</enable_optimal_codelength>
+  <enable_bypass_read>0</enable_bypass_read>
 </ecc_parameter_set>

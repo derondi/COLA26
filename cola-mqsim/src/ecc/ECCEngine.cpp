@@ -445,7 +445,7 @@ void ECCEngine::handle_read_data_from_PHY(NVM_Transaction_Flash *transaction)
             int decode_iter_local_1 = -1;
             int decode_iter_local_2 = -1;
             // if  rber >= 0.0035, skip local matrix hard decode, only do local matrix hard decode when rber < 0.0035
-            if(rber <= 0.0055 && local_hard_decoding_skip(ECC_Parameter_Set::local_hard_decode_skip))
+            if(rber <= 0.0055)
             {
                 decode_iter_local_1 = _my_instance->hard_decision_decode_local_1(channel_id, CodewordType);
                 decode_iter_local_2 = _my_instance->hard_decision_decode_local_t(channel_id, CodewordType);
@@ -672,7 +672,7 @@ void ECCEngine::handle_read_data_from_PHY(NVM_Transaction_Flash *transaction)
                 int decode_iter_local_1 = -1;
                 int decode_iter_local_2 = -1;
                 // if  rber >= 0.0035, skip local matrix hard decode, only do local matrix hard decode when rber < 0.0035
-                if(rber <= 0.0045 && local_hard_decoding_skip(ECC_Parameter_Set::local_hard_decode_skip))
+                if(rber <= 0.0045)
                 {
                     decode_iter_local_1 = _my_instance->hard_decision_decode_local_1(channel_id, CodewordType);
                     decode_iter_local_2 = _my_instance->hard_decision_decode_local_t(channel_id, CodewordType);
@@ -906,7 +906,7 @@ void ECCEngine::handle_read_data_from_PHY(NVM_Transaction_Flash *transaction)
             int decode_iter_local_1 = -1;
             int decode_iter_local_2 = -1;
             // if  rber >= 0.004, skip local matrix hard decode, only do local matrix hard decode when rber < 0.004
-            if(rber <= 0.004 && local_hard_decoding_skip(ECC_Parameter_Set::local_hard_decode_skip))
+            if(rber <= 0.004)
             {
                 decode_iter_local_1 = _my_instance->hard_decision_decode_local_1(channel_id, CodewordType);
                 decode_iter_local_2 = _my_instance->hard_decision_decode_local_t(channel_id, CodewordType);
@@ -1145,7 +1145,7 @@ void ECCEngine::handle_read_data_from_PHY(NVM_Transaction_Flash *transaction)
             int decode_iter_local_1 = -1;
             int decode_iter_local_2 = -1;
             // if  rber >= 0.004, skip local matrix hard decode, only do local matrix hard decode when rber < 0.004
-            if(rber <= 0.004 && local_hard_decoding_skip(ECC_Parameter_Set::local_hard_decode_skip))
+            if(rber <= 0.004)
             {
                 decode_iter_local_1 = _my_instance->hard_decision_decode_local_1(channel_id, CodewordType);
                 decode_iter_local_2 = _my_instance->hard_decision_decode_local_t(channel_id, CodewordType);
@@ -1303,7 +1303,7 @@ end:
     if(final_codeword_fail_time == 6){_my_instance->sixcodeword_decode_failure++;}
     if(final_codeword_fail_time == 7){_my_instance->sevencodeword_decode_failure++;}
     if(final_codeword_fail_time == 8){_my_instance->eightcodeword_decode_failure++;}
-    if(codeword_fail_time > 0 && codeword_fail_time < ncodeword && ECC_Parameter_Set::failure_aware_ecc){
+    if(codeword_fail_time > 0 && codeword_fail_time < ncodeword && ECC_Parameter_Set::enable_failure_aware_read_retry){
     //cout << "datasize_per_codeword: " << datasize_per_codeword << endl;
     //cout << "data_and_metadata_size_in_byte: " << data_and_metadata_size_in_byte << endl;
     //cout << "codeword_fail_time = " << codeword_fail_time << endl;
