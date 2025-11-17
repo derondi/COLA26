@@ -186,10 +186,13 @@ The following parameters are used to define a trace-based workload:
 27. **msa_alpha_1kb:** 1kib msa alpha(i.e. 0.83 for local matrix; 0.43 for global matrix).
 28. **msa_beta_1kb:** 1kib msa beta(i.e. 0.34 for both local matrix and global matrix).
 29. **ssd_init_codeword_type_in_kb:** ssd initial codeword type(i.e. 4)
-8. **ssd_init_pe_cycles:** ssd initial P/E Cycles(i.e. 0).
-9. **ssd_init_retention_days:** ssd initial retentions time(i.e. 100 days).
-10. **ssd_init_read_times:** ssd initial read times(i.e. 100).
-11. **enable_failure_aware_decoding:** the toggle to enable smart decoding(i.e. 0). Range = {1, 0}.
+30. **ssd_init_pe_cycles:** ssd initial P/E Cycles(i.e. 0).
+31. **ssd_init_retention_days:** ssd initial retentions time(i.e. 100 days).
+32. **ssd_init_read_times:** ssd initial read times(i.e. 100).
+33. **enable_failure_aware_read_retry:** the toggle to enable failure-aware read retry(i.e. 0). Range = {1, 0}.
+34. **enable_failure_aware_decoding:** the toggle to enable failure-aware decoding(i.e 0). Range = {1, 0}.
+35. **enable_optimal_codelength:** the toggle to enable optimal codelength selection(i.e 0). Range = {1, 0}.
+36. **enable_bypass_read:** the toggle to enable bypass read(i.e 0). Range = {1, 0}.
 
 ## Analyze MQSim's XML Output
 You can use an XML processor to easily read and analyze an MQSim output file. For example, you can open an MQSim output file in MS Excel. Then, MS Excel shows a set of options and you should choose "Use the XML Source task pane". The XML file is processed in MS Excel and a task pane is shown with all output parameters listed in it. In the task pane on the right, you see different types of statistics available in the MQSim's output file. To read the value of a parameter, you should:<br />
